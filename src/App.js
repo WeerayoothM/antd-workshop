@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import './App.less';
+import { Col, Row, Input, Button, Image, Select, Radio } from 'antd';
+
+import Header from './components/Header';
+import ShoppingCart from './components/ShoppingCart';
+import SuggestProduct from './components/SuggestProduct';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+
+      <Header />
+      <Row justify="center" style={{ backgroundColor: "#F3F3F3" }}>
+        <Col span={16}>
+          <ShoppingCart />
+          <SuggestProduct />
+        </Col>
+      </Row>
+
+    </>
   );
 }
-
 export default App;
