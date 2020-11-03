@@ -105,6 +105,7 @@ const categories = [
     { name: "Home & Living" },
     { name: "Kids & Baby" },
     { name: "Vintage" },
-]
+];
+
 
 export default Header

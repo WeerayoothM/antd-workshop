@@ -5,8 +5,9 @@ import { DingdingOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
-function ProductCard() {
+function ProductCard(props) {
     const [radioValue, setRadioValue] = useState(1);
+    const { imgUrl, seller, description, price } = props.product;
 
     function onChangeRadio(e) {
         console.log('radio checked', e.target.value);
@@ -22,23 +23,24 @@ function ProductCard() {
     }
     return (
         <>
-            <Col span={8} style={{ display: "flex", flexDirection: "column" }}>
+            <Col span={8} style={{ display: "flex", flexDirection: "column", }}>
                 <Row style={{ padding: '10px', display: "flex", justifyContent: 'space-between', backgroundColor: 'white', borderBottom: '1px solid hsl(0,0%,90%)' }}>
-                    <Col span={12} >
+                    <Col span={12}  >
                         <Image
-                            height={'100%'}
-                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                            height={'150px'}
+                            src={imgUrl}
+                            style={{ objectFit: 'cover' }}
                         />
                     </Col>
                     <Col span={11} style={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap' }}>
-                        <p>This is a solution that fits better the requirements of the question.</p>
+                        <p>{description}</p>
                         <Button type="link" block style={{ padding: '0' }}>
-                            By ieie
+                            By {seller}
                         </Button>
                     </Col>
                 </Row >
                 <Row style={{ padding: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'white', }}>
-                    <span>$19.18</span>
+                    <span>${price}</span>
                     <Button type="primary">Add to Cart</Button>
                 </Row>
 
