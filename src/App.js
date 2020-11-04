@@ -10,38 +10,49 @@ import Payment from './components/Payment';
 
 function App() {
   const [totalPrice, setTotalPrice] = useState(0);
-  const [cartProduct, setCartProduct] = useState([
-    {
-      id: 1,
-      imgUrl: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      seller: "Joessa",
-      description: "This is a solution that fits better the requirements of the question.",
-      price: 35.25,
-      size: 'large',
-    },
-    {
-      id: 2,
-      imgUrl: "https://s.isanook.com/hi/0/rp/r/w728/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL2hpLzAvdWQvMjk4LzE0OTM3MTcvaXBob25lLTEyLXByby1uYXZ5LWJsdWUuanBn.jpg",
-      seller: "Apple",
-      description: "This is a solution that fits better the requirements of the question.",
-      price: 19.18,
-      size: 'regular',
-    },
-    {
-      id: 3,
-      imgUrl: "https://images.samsung.com/th/smartphones/galaxy-note20/buy/001-note20series-productimage-mo-720.jpg",
-      seller: "Sumsung",
-      description: "This is a solution that fits better the requirements of the question.",
-      price: 19.18,
-      size: 'regular',
-    },
-  ]
+  const [cartProduct, setCartProduct] = useState([]
+    //[
+    //   {
+    //     id: 1,
+    //     imgUrl: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    //     seller: "Joessa",
+    //     description: "This is a solution that fits better the requirements of the question.",
+    //     price: 35.25,
+    //     size: 'large',
+    //   },
+    //   {
+    //     id: 2,
+    //     imgUrl: "https://s.isanook.com/hi/0/rp/r/w728/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL2hpLzAvdWQvMjk4LzE0OTM3MTcvaXBob25lLTEyLXByby1uYXZ5LWJsdWUuanBn.jpg",
+    //     seller: "Apple",
+    //     description: "This is a solution that fits better the requirements of the question.",
+    //     price: 19.18,
+    //     size: 'regular',
+    //   },
+    //   {
+    //     id: 3,
+    //     imgUrl: "https://images.samsung.com/th/smartphones/galaxy-note20/buy/001-note20series-productimage-mo-720.jpg",
+    //     seller: "Sumsung",
+    //     description: "This is a solution that fits better the requirements of the question.",
+    //     price: 19.18,
+    //     size: 'regular',
+    //   },
+    // ]
   );
 
-  function removeProduct(id) {
+  // useEffect(() => {
+  //   cartProduct.reduce(product)
+
+  // }, [cartProduct])
+
+  function removeProduct(id, amountProduct) {
     const newProduct = cartProduct.filter(product => product.id !== id);
+    const index = cartProduct.findIndex(product => product.id === id);
     setCartProduct(newProduct)
-    console.log(cartProduct)
+    setTotalPrice(prev => {
+      console.log('afterSettotalprice', prev - (cartProduct[index].price * amountProduct))
+      return prev - (cartProduct[index].price * amountProduct)
+    });
+    console.log('beforeSet', totalPrice)
   }
 
   return (
@@ -50,26 +61,24 @@ function App() {
       <Row justify="center" style={{ backgroundColor: "#F3F3F3" }}>
         <Col span={16}>
           <Row style={{ marginTop: "10px", display: 'flex', justifyContent: "space-between", alignItems: 'center' }}>
-            <h1>1 item in your Cart</h1>
+            <h1>{cartProduct.length} item in your Cart</h1>
             <Button type="primary" >Keep Shopping</Button>
           </Row>
           <Row style={{ marginTop: "10px", padding: "20px 0", border: "1px solid hsl(0,0%,90%)", display: 'flex', backgroundColor: "white", justifyContent: "space-between", boxShadow: "0 2px 1px -2px gray" }}>
             <Col span={14}>
               {cartProduct.map((product, idx) => {
                 return (
-
-                  <ShoppingCart product={product} setTotalPrice={setTotalPrice} removeProduct={removeProduct} />
+                  <ShoppingCart key={product.id} product={product} setTotalPrice={setTotalPrice} removeProduct={removeProduct} />
                 )
               })}
-              {/* <ShoppingCart product={cartProduct[1]} setTotalPrice={setTotalPrice} removeProduct={removeProduct} />
-              <ShoppingCart product={cartProduct[2]} setTotalPrice={setTotalPrice} removeProduct={removeProduct} /> */}
+
             </Col>
             <Col span={10} style={{ height: '100%', padding: "0 20px" }}>
 
-              <Payment totalPrice={totalPrice} />
+              <Payment totalPrice={totalPrice} cartProduct={cartProduct} />
             </Col>
           </Row>
-          <SuggestProduct product={mockProduct} />
+          <SuggestProduct product={mockProduct} cartProduct={cartProduct} setCartProduct={setCartProduct} />
         </Col>
       </Row>
 

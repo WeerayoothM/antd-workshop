@@ -14,7 +14,7 @@ function SuggestProduct(props) {
                 <Row gutter={[32, 32]}>
                     {props.product.map((product, index) => {
                         return (
-                            <ProductCard product={product} />
+                            <ProductCard product={product} cartProduct={props.cartProduct} setCartProduct={props.setCartProduct} />
                         )
                     })}
                 </Row>

@@ -11,13 +11,17 @@ const { Option } = Select;
 
 function Payment(props) {
     const [radioValue, setRadioValue] = useState(1);
-    const { totalPrice } = props;
+    const { totalPrice, cartProduct } = props;
 
-    const shippingPrice = 19.18;
+    const shippingPrice = Math.round(totalPrice) ? 19.18 : 0;
 
     function onChangeRadio(e) {
         console.log('radio checked', e.target.value);
         setRadioValue(e.target.value);
+    }
+
+    function checkout() {
+        //
     }
 
     const radioStyle = {
@@ -33,13 +37,13 @@ function Payment(props) {
             <Row style={{ display: 'flex', flexDirection: 'column', marginBottom: '20px' }}>
                 <h3>How you'll pay</h3>
                 <Radio.Group onChange={onChangeRadio} value={radioValue}>
-                    <Radio style={radioStyle} value={1}>
+                    <Radio style={radioStyle} value={"visa"}>
                         <img src={visalogo} width={30} />&nbsp;&nbsp;
                         <img src={mastercard} width={30} />&nbsp;&nbsp;
                         <img src={americanexpress} width={30} />&nbsp;&nbsp;
                         <img src={discover} width={30} />
                     </Radio>
-                    <Radio style={radioStyle} value={2}>
+                    <Radio style={radioStyle} value={"paypal"}>
                         <img src={paypallogo} width={50} />
                     </Radio>
 
@@ -47,7 +51,7 @@ function Payment(props) {
             </Row>
             <Row style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Item(s) total</span>
-                <span>${totalPrice}</span>
+                <span>${totalPrice.toFixed(2)}</span>
             </Row>
             <Row style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Shipping</span>
@@ -58,9 +62,9 @@ function Payment(props) {
             </Row>
             <Row style={{ paddingBottom: '8px', display: 'flex', justifyContent: 'space-between' }}>
                 <h3>Total</h3>
-                <span>${totalPrice + shippingPrice}</span>
+                <span>${(totalPrice + shippingPrice).toFixed(2)}</span>
             </Row>
-            <Button type="primary" style={{ width: '100%', margin: '0 0 10px 0' }}>Proceed to checkout</Button>
+            <Button onClick={checkout} type="primary" style={{ width: '100%', margin: '0 0 10px 0' }}>Proceed to checkout</Button>
             <span style={{ color: 'gray' }}>VAT included (where applicable). Additional duties and taxes may applies.</span>
         </>
         // </Col>

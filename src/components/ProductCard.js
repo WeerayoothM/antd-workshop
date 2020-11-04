@@ -7,7 +7,7 @@ const { Meta } = Card;
 
 function ProductCard(props) {
     const [radioValue, setRadioValue] = useState(1);
-    const { imgUrl, seller, description, price } = props.product;
+    const { imgUrl, seller, description, price, size } = props.product;
 
     function onChangeRadio(e) {
         console.log('radio checked', e.target.value);
@@ -20,6 +20,18 @@ function ProductCard(props) {
 
     function handleChangeSelect(e) {
         //
+    }
+
+    function addProduct() {
+        const cartProduct = [...props.cartProduct];
+        cartProduct.push({
+            id: cartProduct.length + 1,
+            imgUrl,
+            seller,
+            description,
+            price, size
+        })
+        props.setCartProduct(cartProduct);
     }
     return (
         <>
@@ -41,7 +53,7 @@ function ProductCard(props) {
                 </Row >
                 <Row style={{ padding: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'white', }}>
                     <span>${price}</span>
-                    <Button type="primary">Add to Cart</Button>
+                    <Button type="primary" onClick={addProduct}>Add to Cart</Button>
                 </Row>
 
             </Col>

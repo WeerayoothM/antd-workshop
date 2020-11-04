@@ -7,11 +7,13 @@ import { DingdingOutlined } from '@ant-design/icons';
 function ShoppingCart(props) {
     const { imgUrl, seller, description, price, size, id } = props.product;
     const { setTotalPrice, removeProduct } = props;
-    const [amountProduct, setAmountProduct] = useState(1)
+    const [amountProduct, setAmountProduct] = useState(1);
 
     useEffect(() => {
         setTotalPrice(prev => prev + price);
+
     }, [])
+
     function onChangeTextarea(e) {
         //
     };
@@ -19,16 +21,12 @@ function ShoppingCart(props) {
 
 
     function onChangeNumber(value) {
-        console.log('changed', value);
-        setAmountProduct((prevAmount) => {
-            console.log(prevAmount)
-            if (prevAmount > value) {
-                setTotalPrice(prevPrice => prevPrice - price)
-            } else {
-                setTotalPrice(prevPrice => prevPrice + price)
-            }
-            return value
-        })
+        if (amountProduct > value) {
+            setTotalPrice(prevPrice => prevPrice - price)
+        } else {
+            setTotalPrice(prevPrice => prevPrice + price)
+        }
+        setAmountProduct(value)
     }
 
     return (
@@ -50,7 +48,7 @@ function ShoppingCart(props) {
                             <Button type="link" style={{ padding: '0' }}>
                                 Save for later
                                         </Button>
-                            <Button type="link" onClick={() => removeProduct(id)}>
+                            <Button type="link" onClick={() => removeProduct(id, amountProduct)}>
                                 Remove
                         </Button>
                         </div>
