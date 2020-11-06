@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Row, Input, Button, Image, Select, Radio } from 'antd';
+import { Row, Button, Select, Radio } from 'antd';
 import visalogo from '../Images/visa.png';
 import paypallogo from '../Images/paypal.png';
 import mastercard from '../Images/mastercard.png';
